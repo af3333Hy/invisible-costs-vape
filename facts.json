@@ -1,0 +1,33 @@
+[
+  {
+    "part": "mouthpiece",
+    "title": "The liquid in the pod",
+    "fact": "Most e-liquid nicotine is extracted from tobacco waste in India. Harvesters absorb the same nicotine through their skin from wet leaves: 'green tobacco sickness'.",
+    "source": "Kumara Raja, 2021; OSHA, n.d."
+  },
+  {
+    "part": "coil",
+    "title": "The coil you breathe through",
+    "fact": "The hot coil is where the metal comes from: in 56 users' devices, 57% of aerosol samples exceeded the safe inhalation limit for nickel and 68% for chromium.",
+    "source": "Olmedo et al., 2018"
+  },
+  {
+    "part": "shell",
+    "title": "Vegan leather, real solvent",
+    "fact": "'Vegan leather' is polyurethane made with the solvent DMF, which damages workers' livers. In a 2018 survey, 42.6% of workplaces exceeded the health-based safe level.",
+    "source": "Lee et al., 2018"
+  },
+  {
+    "part": "battery",
+    "title": "Where it ends up",
+    "fact": "6.3 million vapes and pods a week are still binned or wrongly recycled in the UK (2026). Battery fires in bin lorries and waste sites now exceed 1,200 a year.",
+    "source": "Material Focus, 2026"
+  },
+  {
+    "part": "board",
+    "title": "Made in Bao'an",
+    "fact": "About 90% of the world's e-cigarettes are made in China, mostly in Shenzhen's Bao'an district, where the 2025 minimum wage was 2,520 yuan a month.",
+    "source": "Tian, 2023; China Briefing, 2025",
+    "image": "img/05_board_big.png?v=20261007f"
+  }
+]

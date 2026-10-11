@@ -1,0 +1,63 @@
+[
+  {
+    "parts": [
+      "mouthpiece"
+    ],
+    "title": "The liquid in the pod",
+    "fact": "Most e-liquid nicotine is extracted from tobacco waste in India. Harvesters absorb the same nicotine through their skin from wet leaves: 'green tobacco sickness'.",
+    "source": "Kumara Raja, 2021; OSHA, n.d.",
+    "url": "https://www.tobaccoinduceddiseases.org/Green-tobacco-sickness-An-understudied-disease-among-tobacco-harvesters,140982,0,2.html",
+    "note": "The study is about tobacco farms in India. Not every e-liquid uses Indian tobacco.",
+    "photo": "img/real/pod_mine.png",
+    "credit": "My own pod: the mouthpiece on top, the liquid in the tank, the coil inside. Photo by me, 12 October 2026."
+  },
+  {
+    "parts": [
+      "coil"
+    ],
+    "title": "The coil you breathe through",
+    "fact": "The hot coil is where the metal comes from: in 56 users' devices, 57% of aerosol samples exceeded the safe inhalation limit for nickel and 68% for chromium.",
+    "source": "Olmedo et al., 2018",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6066345/",
+    "note": "Measured in 56 devices in one US study. Levels differ between brands.",
+    "photo": "img/real/pod_coil.png",
+    "credit": "The coil and its two wires at the end of the pod. Real part. Photo cut from Raimond Spekking, <a href=\"https://commons.wikimedia.org/wiki/File:Flerbar_M_Mango_Ice_-_case_removed-46960.jpg\" target=\"_blank\">Wikimedia Commons</a>, CC BY-SA 4.0."
+  },
+  {
+    "parts": [
+      "shell"
+    ],
+    "title": "Not a cigarette, a small electronic product",
+    "fact": "One vape weighs about 50 grams, and plastic can be up to about 80% of it. It is not a normal cigarette; it is a small electronic product. Would you use a phone for three days and then throw it away?",
+    "source": "Turner et al., 2024",
+    "url": "https://doi.org/10.1016/j.scitotenv.2024.176292",
+    "note": "Average weight and plastic share from the study, not this exact model.",
+    "photo": "img/real/shell.png",
+    "credit": "The plastic shell, cut open. Real part from another disposable. Photo cut from <a href=\"https://wiki.recessim.com/view/Rechargeable_Disposable_Vape_Teardown\" target=\"_blank\">wiki.recessim.com</a>, CC BY-SA 4.0."
+  },
+  {
+    "parts": [
+      "battery"
+    ],
+    "title": "A two-year battery, used for three days",
+    "fact": "After more than 700 charging cycles the battery still keeps over 90% of its capacity. The lithium inside the vapes bought in one year could power nearly 5,000 electric cars. A battery that could be used for two years is thrown away with a single-use vape after three days. Why do we only let it live for three days?",
+    "source": "Reid et al., 2023; Material Focus, 2023",
+    "url": "https://www.cell.com/joule/fulltext/S2542-4351(23)00482-8",
+    "note": "700 cycles was tested in a lab. The car number is an estimate for one year of UK sales.",
+    "photo": "img/real/battery.png",
+    "credit": "The lithium battery, 3.7 V 1.85 Wh. Real part. Photo cut from Raimond Spekking, <a href=\"https://commons.wikimedia.org/wiki/File:Flerbar_M_Mango_Ice_-_case_removed-46960.jpg\" target=\"_blank\">Wikimedia Commons</a>, CC BY-SA 4.0."
+  },
+  {
+    "parts": [
+      "board"
+    ],
+    "title": "Made in Shajing, Shenzhen",
+    "fact": "About 85.7% of the world's vaping devices are made in Shajing, Shenzhen, and about 500,000 people worked in the factories around Shenzhen. China produces the e-cigarettes for the whole world, but bans them at home. So when you smoke one for three days, whose three days are behind it?",
+    "source": "Standaert, Al Jazeera, 2020",
+    "url": "https://www.aljazeera.com/economy/2020/2/26/business-vapourised-could-coronavirus-hurt-e-cigarette-makers",
+    "image": "img/05_board_big.png",
+    "note": "Numbers are from 2020 reporting. The number of workers changes every year.",
+    "photo": "img/real/board.png",
+    "credit": "The circuit board in the end cap. Real part from another disposable. Photo cut from <a href=\"https://wiki.recessim.com/view/Rechargeable_Disposable_Vape_Teardown\" target=\"_blank\">wiki.recessim.com</a>, CC BY-SA 4.0."
+  }
+]

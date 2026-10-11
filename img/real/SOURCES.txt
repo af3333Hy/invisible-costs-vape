@@ -1,0 +1,12 @@
+Real-part cut-outs shown in the fact card. Background removed, otherwise unchanged.
+
+pod_coil.png, battery.png
+  cut from: Raimond Spekking, "Flerbar M Mango Ice - case removed", Wikimedia Commons, CC BY-SA 4.0
+  https://commons.wikimedia.org/wiki/File:Flerbar_M_Mango_Ice_-_case_removed-46960.jpg
+
+shell.png, board.png
+  cut from: "Vape Torndown", Rechargeable Disposable Vape Teardown, wiki.recessim.com, CC BY-SA 4.0
+  https://wiki.recessim.com/view/Rechargeable_Disposable_Vape_Teardown
+
+pod_mine.png
+  My own refillable pod (VOOPOO PnP X), photographed by Yi Han on 2026-10-12. Background removed.
