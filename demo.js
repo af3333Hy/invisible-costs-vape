@@ -153,7 +153,7 @@ function drawCurve() {
 }
 
 // ---------- 9. the pile: the ones you threw, then more and more, until it burns ----------
-const BURN_AT = 14;
+const BURN_AT = 5;
 function startPile() {
   let n = 0;
   const drop = () => {
