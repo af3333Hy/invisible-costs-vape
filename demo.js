@@ -155,11 +155,14 @@ function startPile() {
   let n = 0;
   const drop = () => {
     const dead = document.createElement("img");
-    dead.src = "img/vape_demo_" + (n % 3) + ".png?v=20261013b";
-    dead.className = "dead bw";
-    const SPOTS = [240, 150, 330, 200, 280, 120, 360, 170, 300, 230];   // a small heap under the fire
-    dead.style.left = SPOTS[n % SPOTS.length] + "px";
-    dead.style.bottom = (-70 + Math.floor(n / 5) * 45) + "px";
+    dead.src = "img/vape_line_" + (n % 3) + ".png?v=20261014j";
+    dead.className = "dead";
+    // where each one lands: x, height in the heap, and how crooked it lies
+    const SPOTS = [[200, -70, 90], [310, -70, 97], [150, -46, 84], [265, -46, 102], [225, -22, 88], [120, -22, 94], [340, -22, 80]];
+    const [x, y, rot] = SPOTS[n % SPOTS.length];
+    dead.style.left = x + "px";
+    dead.style.bottom = y + "px";
+    dead.style.setProperty("--rot", rot + "deg");
     pile.appendChild(dead);
     requestAnimationFrame(() => requestAnimationFrame(() => dead.classList.add("down")));
     n++;

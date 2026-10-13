@@ -76,7 +76,7 @@ img, .hero, #smoke, #fire, .part { image-rendering: pixelated; }
 
 /* each thrown vape falls from the top and lands on its side (drawing 32x64 -> 160x320, turned 90 degrees) */
 .dead { position: absolute; width: 160px; height: 320px; transform: translateY(-600px) rotate(60deg); transition: transform 0.6s ease-in; }
-.dead.down { transform: translateY(0) rotate(90deg); }
+.dead.down { transform: translateY(0) rotate(var(--rot, 90deg)); }
 
 /* fire: same strip trick, 10x, looping. This is the only colour on the page. */
 #fire { position: absolute; left: 160px; bottom: 50px; width: 320px; height: 320px; z-index: 4;
