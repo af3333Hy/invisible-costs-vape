@@ -17,9 +17,6 @@ function show(i) {
 document.getElementById("back").addEventListener("click", () => show(current - 1));
 document.getElementById("next").addEventListener("click", () => show(current + 1));
 document.getElementById("end-again").addEventListener("click", () => location.reload());
-// open index.html#person or #pile to jump straight to a scene (handy when presenting)
-if (location.hash === "#person") show(1);
-if (location.hash === "#pile") show(2);
 
 // ---------- 2. frames in img/hero_sheet_8x96.png ----------
 // 0 cigarette  1 pack thrown  2 vape in hand  3 half raised  4 vape + smile  5 vape + low  6 vape + flat  7 vape thrown
@@ -178,3 +175,8 @@ function burn() {
   document.getElementById("end-source").classList.remove("hidden");
   document.getElementById("end-again").classList.remove("hidden");
 }
+
+// ---------- 10. last: jump by hash (must come after everything above is defined) ----------
+// open index.html#person or #pile to jump straight to a scene (handy when presenting)
+if (location.hash === "#person") show(1);
+if (location.hash === "#pile") show(2);
