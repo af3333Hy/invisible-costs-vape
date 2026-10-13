@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Invisible Costs: a disposable vape</title>
-  <link rel="stylesheet" href="style.css?v=20261013c">
+  <link rel="stylesheet" href="style.css?v=20261014c">
 </head>
 <body>
   <h1>Invisible Costs: a disposable vape</h1>
@@ -41,13 +41,15 @@
         <p id="line" class="caption">Ten cigarettes a day.</p>
         <button id="intro-next" class="next">Next &rarr;</button>
         <div id="controls" class="hidden">
-          <img id="button" class="bw" src="img/09_button.png?v=20261013b" alt="push">
-          <p id="hud">Puffs <b id="puffs">0</b> &middot; Battery <span id="bar">&#9646;&#9646;&#9646;&#9646;&#9646;&#9646;&#9646;</span> &middot; Thrown <b id="thrown">0</b></p>
+          <div id="puffbox">
+            <img id="button" class="bw" src="img/09_button.png?v=20261013b" alt="push">
+            <p id="hud">Puffs <b id="puffs">0</b> &middot; Battery <span id="bar">&#9646;&#9646;&#9646;&#9646;&#9646;&#9646;&#9646;</span> &middot; Thrown <b id="thrown">0</b></p>
+          </div>
+          <div id="moodbox" class="hidden">
+            <p class="hint">How it feels</p>
+            <canvas id="curve" width="320" height="220"></canvas>
+          </div>
         </div>
-      </div>
-      <div id="moodbox" class="hidden">
-        <p class="hint">How it feels</p>
-        <canvas id="curve" width="320" height="220"></canvas>
       </div>
     </div>
     <button id="person-next" class="next hidden">Where do they go? &rarr;</button>
@@ -67,6 +69,6 @@
   </section>
 
   <script src="script.js?v=20261013b"></script>
-  <script src="demo.js?v=20261013b"></script>
+  <script src="demo.js?v=20261014c"></script>
 </body>
 </html>

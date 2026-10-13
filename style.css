@@ -37,27 +37,30 @@ img, .hero, #smoke, #fire, .part { image-rendering: pixelated; }
 .hit { position: absolute; pointer-events: auto; cursor: pointer; }
 
 /* ---------- scene 2: the person ---------- */
-/* a 96x96 drawing shown 4x; eight frames side by side in one sheet (768x96 -> 3072x384) */
-.hero { width: 384px; height: 384px; margin: 0 auto; position: relative;
-  background: url(img/hero_sheet_8x128.png?v=20261013c) no-repeat; background-size: 3072px 384px;
-  background-position-x: calc(var(--f, 0) * -384px); }
+/* eight wide line drawings (1416x280 each) side by side in one sheet; the sheet is 8x the element width,
+   so frame f is shown by sliding the background f/7 of the way (percent positions count from the overflow) */
+.hero { width: 100%; max-width: 1200px; aspect-ratio: 1416 / 280; margin: 16px auto 0; position: relative;
+  background: url(img/hero_sheet_8_line.png?v=20261014b) no-repeat; background-size: 800% 100%;
+  background-position-x: calc(var(--f, 0) * 100% / 7); }
 
 #person-row { display: flex; justify-content: center; align-items: flex-start; gap: 48px; flex-wrap: wrap; }
-#player { width: 384px; }
+#player { width: 100%; }
 #button { display: block; width: 64px; height: 64px; margin: 8px auto 0; cursor: pointer; }
 #button:active { transform: translateY(3px); }
 #hud { color: #999; margin: 10px 0 0; }
 #hud b { color: #fff; }
 #bar { letter-spacing: 2px; }
 
-#moodbox { margin-top: 40px; }
+/* under the drawing: the button on the left, the mood curve on the right (stacks on small screens) */
+#controls { display: flex; justify-content: center; align-items: center; gap: 56px; flex-wrap: wrap; margin-top: 8px; }
+#moodbox { margin-top: 0; }
 #curve { border: 1px solid #333; background: #080808; }
 
-/* smoke: 6 frames (192x32). One frame 32x32 -> 160x160, the strip slides with steps(6). It starts at the mouth. */
-#smoke { position: absolute; left: 236px; top: 20px; width: 160px; height: 160px;
-  background: url(img/06_smoke_sheet_6x32.png?v=20261013b) no-repeat; background-size: 960px 160px; visibility: hidden; }
+/* smoke: 6 frames (192x32), the strip slides with steps(6). Placed in percent of the drawing, rising from the end of the vape. */
+#smoke { position: absolute; left: 50%; bottom: 48%; width: 18%; aspect-ratio: 1 / 1;
+  background: url(img/06_smoke_sheet_6x32.png?v=20261013b) no-repeat; background-size: 600% 100%; visibility: hidden; }
 #smoke.play { visibility: visible; animation: strip 0.9s steps(6) forwards; }
-@keyframes strip { from { background-position-x: 0; } to { background-position-x: -960px; } }
+@keyframes strip { from { background-position-x: 0; } to { background-position-x: 120%; } }   /* 6 frames: 100%/5 per step, 6 steps */
 
 /* ---------- scene 3: the pile ---------- */
 #stage { position: relative; width: 640px; height: 520px; margin: 16px auto 0; background: #080808; border: 1px solid #222; overflow: hidden; }
@@ -79,9 +82,6 @@ img, .hero, #smoke, #fire, .part { image-rendering: pixelated; }
 
 /* small screens: everything stacks, drawings shrink */
 @media (max-width: 720px) {
-  .hero { width: 256px; height: 256px; background-size: 2048px 256px; background-position-x: calc(var(--f, 0) * -256px); }
-  #player { width: 256px; }
-  #smoke { left: 170px; top: 0; width: 120px; height: 120px; background-size: 720px 120px; }
   #card { width: auto; margin-top: 0; }
   #stage { transform: scale(0.6); transform-origin: top center; margin-bottom: -200px; }
 }

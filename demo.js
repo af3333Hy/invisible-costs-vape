@@ -7,6 +7,9 @@ function show(id) {
   window.scrollTo(0, 0);
 }
 document.getElementById("parts-next").addEventListener("click", () => show("scene-person"));
+// open index.html#person or #pile to jump straight to a scene (handy when presenting)
+if (location.hash === "#person") show("scene-person");
+if (location.hash === "#pile") { show("scene-pile"); }
 document.getElementById("person-next").addEventListener("click", () => { show("scene-pile"); startPile(); });
 document.getElementById("end-again").addEventListener("click", () => location.reload());
 
