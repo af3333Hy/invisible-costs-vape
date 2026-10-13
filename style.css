@@ -47,7 +47,7 @@ img, .hero, #smoke, #fire, .part { image-rendering: pixelated; }
 /* eight wide line drawings (1416x280 each) side by side in one sheet; the sheet is 8x the element width,
    so frame f is shown by sliding the background f/7 of the way (percent positions count from the overflow) */
 .hero { width: 100%; max-width: 1200px; aspect-ratio: 1416 / 280; margin: 16px auto 0; position: relative;
-  background: url(img/hero_sheet_8_line.png?v=20261014f) no-repeat; background-size: 800% 100%;
+  background: url(img/hero_sheet_8_pixel.png?v=20261014m) no-repeat; background-size: 800% 100%;
   background-position-x: calc(var(--f, 0) * 100% / 7); }
 
 #person-row { display: flex; justify-content: center; align-items: flex-start; gap: 48px; flex-wrap: wrap; }
