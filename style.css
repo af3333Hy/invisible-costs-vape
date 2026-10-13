@@ -40,7 +40,7 @@ img, .hero, #smoke, #fire, .part { image-rendering: pixelated; }
 #object { position: relative; flex-shrink: 0; }
 .part { position: absolute; width: var(--w); height: var(--h); background-size: 100% 100%; background-repeat: no-repeat;
   pointer-events: none; transition: transform 0.5s ease, filter 0.3s; }
-.part.apart { transform: translate(var(--dx), var(--dy)); filter: brightness(1.6); }   /* the part you pulled out is the bright one */
+.part.apart { transform: translate(var(--dx), var(--dy)); filter: drop-shadow(0 0 6px #fff); }   /* the part you pulled out glows */
 .hit { position: absolute; pointer-events: auto; cursor: pointer; }
 
 /* ---------- scene 2: the person ---------- */
