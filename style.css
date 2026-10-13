@@ -83,5 +83,5 @@ img, .hero, #smoke, #fire, .part { image-rendering: pixelated; }
   #player { width: 288px; }
   #smoke { left: 170px; top: 0; width: 120px; height: 120px; background-size: 720px 120px; }
   #card { width: auto; margin-top: 0; }
-  #stage { width: 100%; max-width: 640px; }
+  #stage { transform: scale(0.6); transform-origin: top center; margin-bottom: -200px; }
 }

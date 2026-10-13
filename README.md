@@ -2,7 +2,7 @@
 
 ARTD6232 Creative Technologies 1 · Project 0 · Yi Han (38188163) · October 2026
 
-A web page about one everyday object, a disposable vape. On the left you click a part of a pixel-art vape; it moves apart and a card shows one fact about that part, with its source and a photo of the real part. On the right you press the button to take a puff; the battery runs down, the empty vape is thrown away, three thrown vapes catch fire, and a face shows the mood.
+A web page about one everyday object, a disposable vape, told in three scenes. Scene 1: click a part of the pixel-art vape; it moves apart and a card shows one fact about that part, with its source and a photo of the real part. Scene 2: a person. Six frames with one line each (ten cigarettes a day, quitting, the "healthier" one, the first puff, three thousand puffs a day, cannot stop); then you press the button to puff, the page flips black/white for a moment, smoke rises, a mood curve is drawn, and when the battery is empty the person throws the vape away. Scene 3: the thrown vapes keep landing on the ground until the pile catches fire. The whole page is black and white; the fire is the only colour.
 
 ## Run it
 
@@ -16,13 +16,13 @@ then open http://127.0.0.1:5500/ in a browser. (The page reads JSON files with f
 
 ## Files
 
-- `index.html` – the skeleton: card and object on the left, stage and mood line on the right
-- `style.css` – look, movement (transform), the throw (@keyframes) and the sprite sheets (steps)
-- `script.js` – left side: build the parts, handle clicks, fill the card
-- `demo.js` – right side: puffs, battery, throw, fire, mood
+- `index.html` – the skeleton: three `<section class="scene">`, one shown at a time
+- `style.css` – look (black and white, `filter: grayscale`), the flash (`filter: invert`), movement (transform), the sprite sheets (steps)
+- `script.js` – scene 1: build the parts, handle clicks, fill the card
+- `demo.js` – scene switching, scene 2 (frames + lines, puffs, battery, mood curve on a canvas, throw) and scene 3 (the pile, the fire)
 - `data/facts.json` – the five facts: title, text, source, url, note, photo
 - `assets/parts.json` and `assets/*.png` – the five pixel parts and how far each moves
-- `img/` – sprite sheets (smoke, fire), faces, button, screen, the board close-up
+- `img/` – sprite sheets (the person: `hero_sheet_8x96.png`, 8 frames of 96x96; smoke; fire), button, the board close-up
 - `img/real/` – photos of real parts; sources in `img/real/SOURCES.txt`
 
 ## What is mine, what is not
