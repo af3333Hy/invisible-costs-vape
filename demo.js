@@ -157,7 +157,7 @@ function startPile() {
     const dead = document.createElement("img");
     dead.src = "img/vape_demo_" + (n % 3) + ".png?v=20261013b";
     dead.className = "dead bw";
-    const SPOTS = [40, 300, 170, 420, 90, 360, 230, 10, 330, 130, 400, 60, 270, 200];
+    const SPOTS = [240, 150, 330, 200, 280, 120, 360, 170, 300, 230];   // a small heap under the fire
     dead.style.left = SPOTS[n % SPOTS.length] + "px";
     dead.style.bottom = (-70 + Math.floor(n / 5) * 45) + "px";
     pile.appendChild(dead);
