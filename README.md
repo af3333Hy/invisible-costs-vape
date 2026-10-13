@@ -22,7 +22,7 @@ then open http://127.0.0.1:5500/ in a browser. (The page reads JSON files with f
 - `demo.js` – scene switching, scene 2 (frames + lines, puffs, battery, mood curve on a canvas, throw) and scene 3 (the pile, the fire)
 - `data/facts.json` – the five facts: title, text, source, url, note, photo
 - `assets/parts.json` and `assets/*.png` – the five pixel parts and how far each moves
-- `img/` – sprite sheets (the person: `hero_sheet_8x96.png`, 8 frames of 96x96; smoke; fire), button, the board close-up
+- `img/` – sprite sheets (the person: `hero_sheet_8x128.png`, 8 frames of 128x128; smoke; fire), button, the board close-up
 - `img/real/` – photos of real parts; sources in `img/real/SOURCES.txt`
 
 ## What is mine, what is not

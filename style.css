@@ -39,7 +39,7 @@ img, .hero, #smoke, #fire, .part { image-rendering: pixelated; }
 /* ---------- scene 2: the person ---------- */
 /* a 96x96 drawing shown 4x; eight frames side by side in one sheet (768x96 -> 3072x384) */
 .hero { width: 384px; height: 384px; margin: 0 auto; position: relative;
-  background: url(img/hero_sheet_8x96.png?v=20261013b) no-repeat; background-size: 3072px 384px;
+  background: url(img/hero_sheet_8x128.png?v=20261013c) no-repeat; background-size: 3072px 384px;
   background-position-x: calc(var(--f, 0) * -384px); }
 
 #person-row { display: flex; justify-content: center; align-items: flex-start; gap: 48px; flex-wrap: wrap; }
@@ -79,8 +79,8 @@ img, .hero, #smoke, #fire, .part { image-rendering: pixelated; }
 
 /* small screens: everything stacks, drawings shrink */
 @media (max-width: 720px) {
-  .hero { width: 288px; height: 288px; background-size: 2304px 288px; background-position-x: calc(var(--f, 0) * -288px); }
-  #player { width: 288px; }
+  .hero { width: 256px; height: 256px; background-size: 2048px 256px; background-position-x: calc(var(--f, 0) * -256px); }
+  #player { width: 256px; }
   #smoke { left: 170px; top: 0; width: 120px; height: 120px; background-size: 720px 120px; }
   #card { width: auto; margin-top: 0; }
   #stage { transform: scale(0.6); transform-origin: top center; margin-bottom: -200px; }
