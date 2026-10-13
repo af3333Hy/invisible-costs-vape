@@ -22,6 +22,13 @@ img, .hero, #smoke, #fire, .part { image-rendering: pixelated; }
   font: inherit; font-size: 1.1em; cursor: pointer; }
 .next:hover { background: #fff; color: #000; }
 
+/* corner buttons, always in the same place */
+.nav { position: fixed; top: 14px; padding: 8px 16px; background: #000; color: #fff; border: 2px solid #fff;
+  font: inherit; cursor: pointer; z-index: 20; }
+.nav:hover { background: #fff; color: #000; }
+#back { left: 16px; }
+#next { right: 16px; }
+
 /* ---------- scene 1: take it apart ---------- */
 #parts-row { display: flex; justify-content: center; align-items: flex-start; gap: 48px; flex-wrap: wrap; }
 #card { width: 440px; min-height: 300px; text-align: left; background: #111; padding: 24px; border: 1px solid #333; margin-top: 120px; }

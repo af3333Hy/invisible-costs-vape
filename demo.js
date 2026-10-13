@@ -1,17 +1,25 @@
 // The story in three scenes: take it apart (script.js), the person, the pile.
 
 // ---------- 1. scenes: only one section is shown ----------
-function show(id) {
+const SCENES = ["scene-parts", "scene-person", "scene-pile"];
+let current = 0;
+let pileStarted = false;
+function show(i) {
+  current = i;
   document.querySelectorAll(".scene").forEach((s) => s.classList.remove("on"));
-  document.getElementById(id).classList.add("on");
+  document.getElementById(SCENES[i]).classList.add("on");
+  // Back disappears on the first scene, Next on the last
+  document.getElementById("back").classList.toggle("hidden", i === 0);
+  document.getElementById("next").classList.toggle("hidden", i === SCENES.length - 1);
+  if (i === 2 && !pileStarted) { pileStarted = true; startPile(); }
   window.scrollTo(0, 0);
 }
-document.getElementById("parts-next").addEventListener("click", () => show("scene-person"));
-// open index.html#person or #pile to jump straight to a scene (handy when presenting)
-if (location.hash === "#person") show("scene-person");
-if (location.hash === "#pile") { show("scene-pile"); }
-document.getElementById("person-next").addEventListener("click", () => { show("scene-pile"); startPile(); });
+document.getElementById("back").addEventListener("click", () => show(current - 1));
+document.getElementById("next").addEventListener("click", () => show(current + 1));
 document.getElementById("end-again").addEventListener("click", () => location.reload());
+// open index.html#person or #pile to jump straight to a scene (handy when presenting)
+if (location.hash === "#person") show(1);
+if (location.hash === "#pile") show(2);
 
 // ---------- 2. frames in img/hero_sheet_8x96.png ----------
 // 0 cigarette  1 pack thrown  2 vape in hand  3 half raised  4 vape + smile  5 vape + low  6 vape + flat  7 vape thrown
@@ -63,7 +71,8 @@ introNext.addEventListener("click", () => {
 });
 
 // ---------- 5. the numbers that change (the "state") ----------
-let battery = 70;        // %: one vape lasts 7 puffs here
+const CELLS = 5;         // one vape lasts 5 puffs here
+let battery = CELLS * 10; // %
 let puffs = 0;           // how many puffs in total
 let thrown = 0;          // how many vapes thrown away
 let mood = 50;           // 0 = worst, 100 = best
@@ -79,7 +88,7 @@ button.addEventListener("click", () => {
   puffs++;
   battery -= PUFF_COST;
   puffsEl.textContent = puffs;
-  bar.textContent = "▮".repeat(battery / PUFF_COST) + "▯".repeat(7 - battery / PUFF_COST);
+  bar.textContent = "▮".repeat(battery / PUFF_COST) + "▯".repeat(CELLS - battery / PUFF_COST);
   mood = Math.min(100, mood + 20);   // a puff feels good...
   floor = Math.max(10, floor - 1);   // ...but each one lowers where you sink back to
   flash();                           // the page flips black/white
@@ -107,10 +116,10 @@ function throwAway() {
   thrownEl.textContent = thrown;
   floor = Math.max(10, floor - 8);   // every thrown vape drags the baseline down
   setTimeout(() => {
-    battery = 70;
-    bar.textContent = "▮".repeat(7);
+    battery = CELLS * 10;
+    bar.textContent = "▮".repeat(CELLS);
     busy = false;
-    if (thrown >= NEXT_AT) document.getElementById("person-next").classList.remove("hidden");
+    if (thrown >= NEXT_AT) { title.textContent = "Where do they go?"; line.textContent = "Press Next → (or keep going)."; }
   }, 700);
 }
 

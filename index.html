@@ -4,9 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Invisible Costs: a disposable vape</title>
-  <link rel="stylesheet" href="style.css?v=20261014c">
+  <link rel="stylesheet" href="style.css?v=20261014d">
 </head>
 <body>
+  <!-- Back / Next in the corners: the three scenes can be visited in any order -->
+  <button id="back" class="nav hidden">&larr; Back</button>
+  <button id="next" class="nav">Next &rarr;</button>
+
   <h1>Invisible Costs: a disposable vape</h1>
 
   <!-- Three scenes. Only the one with class "on" is shown. -->
@@ -27,7 +31,6 @@
         <p id="card-credit"></p>
       </aside>
     </div>
-    <button id="parts-next" class="next">Who uses it? &rarr;</button>
   </section>
 
   <!-- SCENE 2: the person. First six frames with one line each, then press the button to puff. -->
@@ -39,11 +42,11 @@
           <div id="smoke"></div>
         </div>
         <p id="line" class="caption">Ten cigarettes a day.</p>
-        <button id="intro-next" class="next">Next &rarr;</button>
+        <button id="intro-next" class="next">Continue &rarr;</button>
         <div id="controls" class="hidden">
           <div id="puffbox">
             <img id="button" class="bw" src="img/09_button.png?v=20261013b" alt="push">
-            <p id="hud">Puffs <b id="puffs">0</b> &middot; Battery <span id="bar">&#9646;&#9646;&#9646;&#9646;&#9646;&#9646;&#9646;</span> &middot; Thrown <b id="thrown">0</b></p>
+            <p id="hud">Puffs <b id="puffs">0</b> &middot; Battery <span id="bar">&#9646;&#9646;&#9646;&#9646;&#9646;</span> &middot; Thrown <b id="thrown">0</b> / 3</p>
           </div>
           <div id="moodbox" class="hidden">
             <p class="hint">How it feels</p>
@@ -52,7 +55,6 @@
         </div>
       </div>
     </div>
-    <button id="person-next" class="next hidden">Where do they go? &rarr;</button>
   </section>
 
   <!-- SCENE 3: the pile. They keep landing until it catches fire. -->
@@ -69,6 +71,6 @@
   </section>
 
   <script src="script.js?v=20261013b"></script>
-  <script src="demo.js?v=20261014c"></script>
+  <script src="demo.js?v=20261014d"></script>
 </body>
 </html>
