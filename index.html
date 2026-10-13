@@ -2,61 +2,71 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Invisible Costs: a disposable vape</title>
-  <link rel="stylesheet" href="style.css?v=20261012d">
+  <link rel="stylesheet" href="style.css?v=20261013b">
 </head>
 <body>
   <h1>Invisible Costs: a disposable vape</h1>
 
-  <main>
-    <!-- LEFT: take it apart, read the facts -->
-    <section id="left">
+  <!-- Three scenes. Only the one with class "on" is shown. -->
+
+  <!-- SCENE 1: take it apart, read the facts -->
+  <section id="scene-parts" class="scene on">
+    <h2>What is inside?</h2>
+    <p class="hint">Click a part to pull it apart.</p>
+    <div id="parts-row">
+      <div id="object" class="bw"></div>
       <aside id="card">
         <h3 id="card-title">Look closer</h3>
-        <p id="card-fact">In 2024, about 8.2 million disposable vapes were thrown away every week in the UK, 13 every second. I use one for about two or three days. So where does it go next? Click a part.</p>
+        <p id="card-fact">In 2024, about 8.2 million disposable vapes were thrown away every week in the UK, 13 every second. I use one for about two or three days. Click a part.</p>
         <p id="card-source"></p>
         <p id="card-note"></p>
-        <img id="card-image" alt="">
-        <img id="card-photo" alt="">
+        <img id="card-image" class="bw" alt="">
+        <img id="card-photo" class="bw" alt="">
         <p id="card-credit"></p>
       </aside>
-      <div>
-        <h2>What is inside?</h2>
-        <p class="hint">Click a part to pull it apart.</p>
-        <div id="object"></div>
-      </div>
-    </section>
+    </div>
+    <button id="parts-next" class="next">Who uses it? &rarr;</button>
+  </section>
 
-    <!-- RIGHT: use it, throw it, watch the mood -->
-    <section id="right">
-      <div>
-        <h2>What does using it feel like?</h2>
-        <p class="hint">Press the button to take a puff.</p>
-        <div id="stage">
-          <div id="vape">
-            <div id="smoke"></div>
-            <img id="body" src="img/vape_demo_0.png?v=20261012d" alt="vape">
-            <img id="button" src="img/09_button.png?v=20261012d" alt="button">
-            <span id="screen">70</span>
-          </div>
-          <div id="pile"></div>
-          <div id="fire"></div>
-          <div id="ground"></div>
+  <!-- SCENE 2: the person. First six frames with one line each, then press the button to puff. -->
+  <section id="scene-person" class="scene">
+    <h2 id="person-title">Ten a day</h2>
+    <div id="person-row">
+      <div id="player">
+        <div id="hero" class="hero" style="--f: 0;">
+          <div id="smoke"></div>
+        </div>
+        <p id="line" class="caption">Ten cigarettes a day.</p>
+        <button id="intro-next" class="next">Next &rarr;</button>
+        <div id="controls" class="hidden">
+          <img id="button" class="bw" src="img/09_button.png?v=20261013b" alt="push">
+          <p id="hud">Puffs <b id="puffs">0</b> &middot; Battery <span id="bar">&#9646;&#9646;&#9646;&#9646;&#9646;&#9646;&#9646;</span> &middot; Thrown <b id="thrown">0</b></p>
         </div>
       </div>
-
-      <div id="mood">
-        <div class="label">Happy</div>
-        <div id="track">
-          <div class="label mid">Middle</div>
-          <img id="face" src="img/08_face_flat.png?v=20261012d" alt="mood">
-        </div>
-        <div class="label">Low</div>
+      <div id="moodbox" class="hidden">
+        <p class="hint">How it feels</p>
+        <canvas id="curve" width="320" height="220"></canvas>
       </div>
-    </section>
-  </main>
+    </div>
+    <button id="person-next" class="next hidden">Where do they go? &rarr;</button>
+  </section>
 
-  <script src="script.js?v=20261012d"></script>
-  <script src="demo.js?v=20261012d"></script>
+  <!-- SCENE 3: the pile. They keep landing until it catches fire. -->
+  <section id="scene-pile" class="scene">
+    <h2>Where it ends</h2>
+    <div id="stage">
+      <div id="pile"></div>
+      <div id="fire"></div>
+      <div id="ground"></div>
+    </div>
+    <p id="end-fact" class="caption hidden">6.3 million vapes and pods a week are still binned or wrongly recycled in the UK. Battery fires in bin lorries and waste sites now exceed 1,200 a year.</p>
+    <p id="end-source" class="hidden">Source: Material Focus, 2026</p>
+    <button id="end-again" class="next hidden">Start again</button>
+  </section>
+
+  <script src="script.js?v=20261013b"></script>
+  <script src="demo.js?v=20261013b"></script>
 </body>
 </html>

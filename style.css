@@ -1,96 +1,87 @@
-body { margin: 0; background: #111; color: #eee; font-family: Georgia, serif; text-align: center; }
-h1 { margin: 24px 0 4px; }
+/* Black and white until the fire. The only colour on the whole page is the flame at the end. */
+body { margin: 0; background: #000; color: #fff; font-family: Georgia, serif; text-align: center; }
+h1 { margin: 24px 0 4px; font-weight: normal; letter-spacing: 1px; }
 h2 { margin: 8px 0 0; font-weight: normal; }
 .hint { color: #999; margin: 0 0 16px; }
+.caption { font-size: 1.5em; margin: 16px 0 0; min-height: 1.4em; }
+.hidden { display: none !important; }
 
-/* one row, spread across the page: card | vape | stage | mood */
-main { display: flex; justify-content: center; align-items: flex-start; gap: 40px; flex-wrap: wrap; padding: 20px; }
-#left, #right { display: flex; align-items: flex-start; gap: 32px; }
+/* one puff = the whole page flips black/white for a moment */
+body.flash { filter: invert(1); }
 
-/* ---------- LEFT: take it apart ---------- */
-#card { width: 440px; min-height: 300px; text-align: left; background: #222; padding: 24px; border-radius: 8px; margin-top: 200px; }
-#card-source { color: #999; font-size: 0.85em; }
-#card-image { display: none; width: 240px; height: 320px; image-rendering: pixelated; margin: 12px auto 0; }
-#card-note { color: #777; font-size: 0.8em; }
+/* pixel art is shown big, with hard edges */
+img, .hero, #smoke, #fire, .part { image-rendering: pixelated; }
+/* the colour drawings are shown in black and white */
+.bw { filter: grayscale(1); }
+
+/* ---------- scenes: only one is shown ---------- */
+.scene { display: none; padding: 20px; }
+.scene.on { display: block; }
+
+.next { margin-top: 24px; padding: 10px 22px; background: #000; color: #fff; border: 2px solid #fff;
+  font: inherit; font-size: 1.1em; cursor: pointer; }
+.next:hover { background: #fff; color: #000; }
+
+/* ---------- scene 1: take it apart ---------- */
+#parts-row { display: flex; justify-content: center; align-items: flex-start; gap: 48px; flex-wrap: wrap; }
+#card { width: 440px; min-height: 300px; text-align: left; background: #111; padding: 24px; border: 1px solid #333; margin-top: 120px; }
+#card-source, #card-note, #card-credit { color: #999; font-size: 0.85em; }
+#card-source a, #card-credit a { color: #fff; }
+#card-image { display: none; width: 240px; height: 320px; margin: 12px auto 0; }
 #card-photo { display: none; max-width: 100%; max-height: 220px; margin: 14px auto 0; }
-#card-credit { color: #777; font-size: 0.75em; }
-#card-credit a { color: #9ad1ff; }
 
- #object { position: relative; margin-top: 130px; flex-shrink: 0; }
+#object { position: relative; flex-shrink: 0; }
+.part { position: absolute; width: var(--w); height: var(--h); background-size: 100% 100%; background-repeat: no-repeat;
+  pointer-events: none; transition: transform 0.5s ease, filter 0.3s; }
+.part.apart { transform: translate(var(--dx), var(--dy)); filter: brightness(1.6); }   /* the part you pulled out is the bright one */
+.hit { position: absolute; pointer-events: auto; cursor: pointer; }
 
-  .part {
-    position: absolute;
-    width: var(--w);
-    height: var(--h);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    image-rendering: pixelated;
-    pointer-events: none;
-    transition: transform 0.5s ease;
-  }
-  .part:has(.hit:hover) { filter: brightness(1.3); }
+/* ---------- scene 2: the person ---------- */
+/* a 96x96 drawing shown 4x; eight frames side by side in one sheet (768x96 -> 3072x384) */
+.hero { width: 384px; height: 384px; margin: 0 auto; position: relative;
+  background: url(img/hero_sheet_8x96.png?v=20261013b) no-repeat; background-size: 3072px 384px;
+  background-position-x: calc(var(--f, 0) * -384px); }
 
-  .part.apart { transform: translate(var(--dx), var(--dy)); }
-
-  .hit { position: absolute; pointer-events: auto; cursor: pointer; }
-
-  #model-output { color: #cde; font-size: 0.95em; }
-  #card-source a { color: #9ad1ff; }
-/* ---------- RIGHT: use it ---------- */
-/* all pixel art is shown 5x bigger, with hard edges (no blur) */
-#right img, #smoke, #fire, #screen { image-rendering: pixelated; }
-
-#stage { position: relative; width: 640px; height: 520px; background: #181818; border-radius: 8px; overflow: hidden; }
-#ground { position: absolute; left: 0; right: 0; bottom: 0; height: 60px; background: #2a2a2a; }
-#pile { position: absolute; left: 0; right: 0; bottom: 0; height: 60px; z-index: 2; }
-
-/* the vape standing on the right (drawing is 32x64 -> 160x320) */
-#vape { position: absolute; left: 440px; top: 140px; width: 160px; height: 320px; z-index: 3; }
-#body { width: 160px; height: 320px; display: block; }
-
-/* button at the top of the shell; the screen is drawn in the pixel art, this is just the number on it
-   (screen pixels x 11-21, y 26-58 of the 32x64 drawing, shown 5x) */
-#button { position: absolute; left: 60px; top: 80px; width: 40px; height: 40px; cursor: pointer; }
+#person-row { display: flex; justify-content: center; align-items: flex-start; gap: 48px; flex-wrap: wrap; }
+#player { width: 384px; }
+#button { display: block; width: 64px; height: 64px; margin: 8px auto 0; cursor: pointer; }
 #button:active { transform: translateY(3px); }
-#screen { position: absolute; left: 50px; top: 130px; width: 60px; height: 180px;
-  font: bold 26px monospace; color: #3c8; line-height: 180px; text-align: center; }
-#screen.flash { color: #fff; }
+#hud { color: #999; margin: 10px 0 0; }
+#hud b { color: #fff; }
+#bar { letter-spacing: 2px; }
 
-/* a puff: the whole vape gives a small kick */
-#vape.puff { animation: kick 0.15s ease-out; }
-@keyframes kick { 50% { transform: translateY(4px) scale(0.98); } }
+#moodbox { margin-top: 40px; }
+#curve { border: 1px solid #333; background: #080808; }
 
-/* smoke: a strip of 6 frames (192x32). We show one frame (32x32 -> 160x160) and slide the strip. */
-#smoke { position: absolute; left: 0; top: -150px; width: 160px; height: 160px;
-  background: url(img/06_smoke_sheet_6x32.png?v=20261007f) no-repeat; background-size: 960px 160px;
-  visibility: hidden; }
+/* smoke: 6 frames (192x32). One frame 32x32 -> 160x160, the strip slides with steps(6). It starts at the mouth. */
+#smoke { position: absolute; left: 236px; top: 20px; width: 160px; height: 160px;
+  background: url(img/06_smoke_sheet_6x32.png?v=20261013b) no-repeat; background-size: 960px 160px; visibility: hidden; }
 #smoke.play { visibility: visible; animation: strip 0.9s steps(6) forwards; }
 @keyframes strip { from { background-position-x: 0; } to { background-position-x: -960px; } }
 
-/* throwing the vape away: an arc to the left, lands on its side exactly where its copy will lie
-   (--tx / --ty are set by demo.js for each resting place) */
-#vape.thrown { animation: throw 1.5s linear forwards; }
-@keyframes throw {
-  0%   { transform: translate(0, 0) rotate(0deg); }
-  40%  { transform: translate(calc(var(--tx) * 0.5), -200px) rotate(40deg); }
-  72%  { transform: translate(var(--tx), var(--ty)) rotate(90deg); }
-  84%  { transform: translate(calc(var(--tx) - 8px), calc(var(--ty) - 35px)) rotate(90deg); }
-  94%  { transform: translate(var(--tx), var(--ty)) rotate(90deg); }
-  100% { transform: translate(var(--tx), var(--ty)) rotate(90deg); }
-}
+/* ---------- scene 3: the pile ---------- */
+#stage { position: relative; width: 640px; height: 520px; margin: 16px auto 0; background: #080808; border: 1px solid #222; overflow: hidden; }
+#ground { position: absolute; left: 0; right: 0; bottom: 0; height: 60px; background: #1a1a1a; }
+#pile { position: absolute; left: 0; right: 0; bottom: 0; height: 60px; z-index: 2; }
 
-/* vapes lying on the ground: same size as the standing one (160x320), turned on their side */
-.dead { position: absolute; width: 160px; height: 320px; transform: rotate(90deg); transition: opacity 0.8s; }
-#pile.cleared .dead { opacity: 0; }
+/* each thrown vape falls from the top and lands on its side (drawing 32x64 -> 160x320, turned 90 degrees) */
+.dead { position: absolute; width: 160px; height: 320px; transform: translateY(-600px) rotate(60deg); transition: transform 0.6s ease-in; }
+.dead.down { transform: translateY(0) rotate(90deg); }
 
-/* fire on the pile: same strip trick as the smoke, but shown twice as big (10x) so it covers the pile */
-#fire { position: absolute; left: 10px; bottom: 50px; width: 320px; height: 320px; z-index: 4;
-  background: url(img/07_fire_sheet_6x32.png?v=20261007f) no-repeat; background-size: 1920px 320px; visibility: hidden; }
-#fire.play { visibility: visible; animation: strip-big 1.2s steps(6) 3; }
+/* fire: same strip trick, 10x, looping. This is the only colour on the page. */
+#fire { position: absolute; left: 160px; bottom: 50px; width: 320px; height: 320px; z-index: 4;
+  background: url(img/07_fire_sheet_6x32.png?v=20261013b) no-repeat; background-size: 1920px 320px; visibility: hidden; }
+#fire.play { visibility: visible; animation: strip-big 1.2s steps(6) infinite; }
 @keyframes strip-big { from { background-position-x: 0; } to { background-position-x: -1920px; } }
 
-/* mood: a face sliding between Happy and Low */
-#mood { display: flex; flex-direction: column; align-items: center; margin-top: 70px; color: #888; font-size: 15px; }
-#track { position: relative; width: 90px; height: 380px; margin: 6px 0; border-left: 2px dashed #444; }
-#track .mid { position: absolute; left: 94px; top: 182px; }
-#face { position: absolute; left: 5px; width: 80px; height: 80px; top: 150px; transition: top 0.4s ease; }
+#end-fact { max-width: 640px; margin: 20px auto 0; }
+#end-source { color: #999; font-size: 0.9em; }
+
+/* small screens: everything stacks, drawings shrink */
+@media (max-width: 720px) {
+  .hero { width: 288px; height: 288px; background-size: 2304px 288px; background-position-x: calc(var(--f, 0) * -288px); }
+  #player { width: 288px; }
+  #smoke { left: 170px; top: 0; width: 120px; height: 120px; background-size: 720px 120px; }
+  #card { width: auto; margin-top: 0; }
+  #stage { width: 100%; max-width: 640px; }
+}

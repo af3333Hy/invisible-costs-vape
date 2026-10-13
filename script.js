@@ -58,7 +58,7 @@ const objectEl = document.getElementById("object");
 
     if (!isApart) {
       cardTitle.textContent = "Look closer";
-      cardFact.textContent = "In 2024, about 8.2 million disposable vapes were thrown away every week in the UK, 13 every second. I use one for about two or three days. So where does it go next? Click a part.";
+      cardFact.textContent = "In 2024, about 8.2 million disposable vapes were thrown away every week in the UK, 13 every second. I use one for about two or three days. Click a part.";
       cardSource.textContent = "";
       cardImage.style.display = "none";
       cardNote.textContent = "";
