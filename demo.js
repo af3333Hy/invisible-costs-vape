@@ -202,25 +202,26 @@ function burn() {
   document.getElementById("end-source").classList.remove("hidden");
 }
 
-// ---------- 6. PAGE 4: six months a press. Me on the right, the mine on the left. ----------
+// ---------- 6. PAGE 4: ten years, a few years a press. Me on the right, the mine on the left. ----------
 // Faces: frame number in img/years_sheet_5_PLACEHOLDER_AI.png (0 healthy, 1 tired, 2 tired, 3 gone, 4 gone).
 // The strip is cut from Jimeng reference images for now; Yi Han redraws the frames in Piskel and keeps the same order.
 const STAGES = [
-  [0, "Month 0", "Healthy."],
-  [1, "Month 6", "Tired."],
-  [2, "Month 12", "Can't give it up."],
-  [3, "Month 18", "Ill."],          // TODO: Yi Han decides the last two words
-  [4, "Month 24", "Gone."],
+  [0, "Year 0", "Healthy."],
+  [1, "Year 2", "Tired."],
+  [2, "Year 5", "Can't give it up."],
+  [3, "Year 8", "Ill."],          // TODO: Yi Han decides the last two words
+  [4, "Year 10", "Gone."],
 ];
-const PER_MONTH = 10;   // one every three days, from my own use
-let months = 0;
+const PER_YEAR = 120;   // one every three days, from my own use
+let stage = 0;
 document.getElementById("years-go").addEventListener("click", async () => {
-  months += 6;
-  const stage = STAGES[months / 6];
-  document.getElementById("years-hero").style.setProperty("--f", stage[0]);
-  document.getElementById("years-line").textContent = stage[1] + ": " + stage[2];
-  document.getElementById("years-vapes").textContent = months * PER_MONTH;
-  if (months >= 24) {
+  stage++;
+  const [frame, when, words] = STAGES[stage];
+  const years = parseInt(when.replace("Year ", ""));
+  document.getElementById("years-hero").style.setProperty("--f", frame);
+  document.getElementById("years-line").textContent = when + ": " + words;
+  document.getElementById("years-vapes").textContent = years * PER_YEAR;
+  if (stage === STAGES.length - 1) {
     document.getElementById("years-go").classList.add("hidden");
     twoVoices();
   }
