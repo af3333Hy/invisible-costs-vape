@@ -38,11 +38,12 @@ img, .hero, #smoke, #fire, .part, #miners { image-rendering: pixelated; }
 /* what the model says */
 .model { color: #ddd; font-style: italic; margin: 10px 0 0; min-height: 1.4em; }
 
-/* ---------- the person: eight wide drawings side by side in one sheet ---------- */
-/* the sheet is 8x the element width, so frame f is shown by sliding the background f/7 of the way */
-.hero { width: 100%; max-width: 1100px; aspect-ratio: 1416 / 280; margin: 12px auto 0; position: relative;
-  background: url(img/hero_sheet_8_pixel.png?v=20261014n) no-repeat; background-size: 800% 100%;
-  background-position-x: calc(var(--f, 0) * 100% / 7); }
+/* ---------- the person: one strip, five frames of 1000x600 (0 healthy, 1 tired, 2 tired, 3 gone, 4 gone) ---------- */
+/* the sheet is 5x the element width, so frame f is shown by sliding the background f/4 of the way.
+   The strip is a placeholder for now; Yi Han redraws the frames in Piskel, same order, same size. */
+.hero { width: 600px; height: 360px; margin: 8px auto 0; position: relative;
+  background: url(img/years_sheet_5_PLACEHOLDER_AI.png?v=20261014v) no-repeat; background-size: 500% 100%;
+  background-position-x: calc(var(--f, 0) * 100% / 4); image-rendering: auto; }
 
 /* ---------- page 1: the words under the drawing ---------- */
 .facts { list-style: none; padding: 0; margin: 14px auto 0; max-width: 820px; text-align: left; }
@@ -76,7 +77,7 @@ img, .hero, #smoke, #fire, .part, #miners { image-rendering: pixelated; }
 #curve { border: 1px solid #333; background: #080808; }
 
 /* smoke: 6 frames (192x32), the strip slides with steps(6). Placed in percent of the drawing, rising from the end of the vape. */
-#smoke { position: absolute; left: 50%; bottom: 48%; width: 18%; aspect-ratio: 1 / 1;
+#smoke { position: absolute; left: 68%; bottom: 44%; width: 16%; aspect-ratio: 1 / 1;
   background: url(img/06_smoke_sheet_6x32.png?v=20261013b) no-repeat; background-size: 600% 100%; visibility: hidden; }
 #smoke.play { visibility: visible; animation: strip 0.9s steps(6) forwards; }
 @keyframes strip { from { background-position-x: 0; } to { background-position-x: 120%; } }   /* 6 frames: 100%/5 per step, 6 steps */
@@ -103,10 +104,6 @@ img, .hero, #smoke, #fire, .part, #miners { image-rendering: pixelated; }
 #years-row { display: flex; justify-content: center; align-items: flex-start; gap: 40px; margin-top: 10px; }
 #mine { width: 340px; }
 #me { width: 780px; }
-/* page 4 faces: 5 frames of 1000x600 in one strip. PLACEHOLDER_AI = Jimeng reference, to be redrawn by Yi Han in Piskel. */
-#years-hero { width: 600px; height: 360px; margin: 0 auto; background: url(img/years_sheet_5_PLACEHOLDER_AI.png?v=20261014t) no-repeat;
-  background-size: 500% 100%; background-position-x: calc(var(--f, 0) * 100% / 4); image-rendering: auto; }
-
 /* PLACEHOLDER box for the miners. When the sheet is drawn: give it a background like .hero and animate with steps(). */
 #miners { width: 320px; height: 320px; margin: 0 auto; border: 1px dashed #444; background: #080808;
   display: flex; align-items: center; justify-content: center; color: #555; font-size: 0.9em; }

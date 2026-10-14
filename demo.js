@@ -42,15 +42,15 @@ function fillFacts(facts) {
 let mineFact = "";
 
 // ---------- 4. PAGE 1: six frames play by themselves, then the words ----------
-// frames in the sheet: 0 cigarette  1 pack thrown  2 vape in hand  3 half raised  4 vape + smile  5 vape + low  6 flat  7 thrown
+// frames in the strip: 0 healthy  1 tired  2 tired  3 gone  4 gone  (Yi Han adds cigarette / pack frames when he redraws)
 // Yi Han's own lines (14 Oct), grammar tidied.
 const INTRO = [
   [0, "Ten a day", "Ten cigarettes in one day."],
-  [1, "Gave it up", "I gave it up."],
-  [2, "Healthier?", "It's healthier, they said."],
-  [3, "First time", "The first time I use it."],
-  [4, "3,000 a day", "3,000 puffs in one day."],
-  [5, "Can't give it up", "I can't give it up."],
+  [0, "Gave it up", "I gave it up."],
+  [0, "Healthier?", "It's healthier, they said."],
+  [0, "First time", "The first time I use it."],
+  [0, "3,000 a day", "3,000 puffs in one day."],
+  [1, "Can't give it up", "I can't give it up."],
 ];
 const FRAME_TIME = 1300;   // milliseconds each frame stays
 if (current === "start") {
@@ -70,7 +70,7 @@ if (current === "start") {
 }
 
 // ---------- 5. PAGE 3: the button, the numbers, the mood, then the pile ----------
-const FACE_SMILE = 4, FACE_FLAT = 6, FACE_LOW = 5, THROW = 7;
+const FACE_SMILE = 0, FACE_FLAT = 1, FACE_LOW = 2, THROW = 2;   // frames in the strip
 const hero = document.getElementById("use-hero");
 const smoke = document.getElementById("smoke");
 const useTitle = document.getElementById("use-title");
