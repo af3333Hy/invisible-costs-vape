@@ -1,5 +1,6 @@
 /* Black and white until the fire. The only colour on the whole page is the flame at the end. */
-body { margin: 0; background: #000; color: #fff; font-family: Georgia, serif; text-align: center; overflow: hidden; }
+body { margin: 0; background: #000; color: #fff; font-family: Georgia, serif; text-align: center; overflow: hidden;
+  position: relative; height: 100vh; }   /* the filter on body.flash makes body the box #app is placed in, so body must be the whole window */
 h1 { margin: 0 0 4px; font-weight: normal; letter-spacing: 1px; }
 h2 { margin: 8px 0 0; font-weight: normal; }
 h3 { font-weight: normal; margin: 0 0 8px; }
