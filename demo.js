@@ -1,26 +1,49 @@
-// The story in three scenes: take it apart (script.js), the person, the pile.
+// Pages 1, 3 and 4, the menu, and the scaling. (Page 2, the object, is in script.js.)
 
-// ---------- 1. scenes: only one section is shown ----------
-const SCENES = ["scene-parts", "scene-person", "scene-pile"];
-let current = 0;
-let pileStarted = false;
-function show(i) {
-  current = i;
-  document.querySelectorAll(".scene").forEach((s) => s.classList.remove("on"));
-  document.getElementById(SCENES[i]).classList.add("on");
-  // Back disappears on the first scene, Next on the last
-  document.getElementById("back").classList.toggle("hidden", i === 0);
-  document.getElementById("next").classList.toggle("hidden", i === SCENES.length - 1);
-  if (i === 2 && !pileStarted) { pileStarted = true; startPile(); }
-  window.scrollTo(0, 0);
+// ---------- 1. the menu: opening a page always starts it fresh ----------
+// The page name sits in the address after #. Reloading the page clears every number back to zero.
+const PAGES = ["start", "inside", "use", "years"];
+function openPage(name) {
+  location.hash = name;
+  location.reload();
 }
-document.getElementById("back").addEventListener("click", () => show(current - 1));
-document.getElementById("next").addEventListener("click", () => show(current + 1));
-document.getElementById("end-again").addEventListener("click", () => location.reload());
+document.querySelectorAll("#menu button").forEach((b) => b.addEventListener("click", () => openPage(b.dataset.page)));
+document.getElementById("reset").addEventListener("click", () => openPage(location.hash.slice(1) || "start"));
 
-// ---------- 2. frames in img/hero_sheet_8x96.png ----------
-// 0 cigarette  1 pack thrown  2 vape in hand  3 half raised  4 vape + smile  5 vape + low  6 vape + flat  7 vape thrown
-// DRAFT LINES: Yi Han rewrites these in his own words before the crit.
+// show the page named in the address (or the first one)
+const current = PAGES.includes(location.hash.slice(1)) ? location.hash.slice(1) : "start";
+document.getElementById("page-" + current).classList.add("on");
+document.querySelector('#menu button[data-page="' + current + '"]').classList.add("on");
+
+// ---------- 2. scale the 1280 x 800 stage to the window (big screen = big picture) ----------
+function fit() {
+  const s = Math.min(window.innerWidth / 1280, window.innerHeight / 800);
+  document.getElementById("app").style.transform = "scale(" + s + ")";
+}
+fit();
+window.addEventListener("resize", fit);
+
+// ---------- 3. the words from facts.json for pages 1 and 4 (called by script.js once the file is loaded) ----------
+function fillFacts(facts) {
+  const list = document.getElementById("start-facts");
+  facts.filter((f) => f.page === "start").forEach((f) => {
+    const li = document.createElement("li");
+    li.innerHTML = "<b>" + f.title + "</b>" + f.fact + " " +
+      (f.url ? '<a href="' + f.url + '" target="_blank">' + f.source + "</a>" : "");
+    list.appendChild(li);
+  });
+  const mine = facts.find((f) => f.page === "years");
+  if (mine) {
+    document.getElementById("mine-fact").innerHTML = mine.fact +
+      ' <a href="' + mine.url + '" target="_blank" style="color:#999">' + mine.source + "</a>";
+    mineFact = mine.fact;
+  }
+}
+let mineFact = "";
+
+// ---------- 4. PAGE 1: six frames play by themselves, then the words ----------
+// frames in the sheet: 0 cigarette  1 pack thrown  2 vape in hand  3 half raised  4 vape + smile  5 vape + low  6 flat  7 thrown
+// DRAFT LINES: Yi Han rewrites these in his own words.
 const INTRO = [
   [0, "Ten a day", "Ten cigarettes a day."],
   [1, "Quit", "I quit."],
@@ -29,63 +52,51 @@ const INTRO = [
   [4, "3,000 a day", "Three thousand puffs a day."],
   [5, "Can't stop", "I can't stop."],
 ];
-const title = document.getElementById("person-title");
+const FRAME_TIME = 1300;   // milliseconds each frame stays
+if (current === "start") {
+  let step = 0;
+  const timer = setInterval(() => {
+    step++;
+    if (step < INTRO.length) {
+      document.getElementById("start-hero").style.setProperty("--f", INTRO[step][0]);
+      document.getElementById("start-title").textContent = INTRO[step][1];
+      document.getElementById("start-line").textContent = INTRO[step][2];
+    } else {
+      clearInterval(timer);
+      document.getElementById("start-words").classList.remove("hidden");
+    }
+  }, FRAME_TIME);
+  document.getElementById("start-go").addEventListener("click", () => openPage("inside"));
+}
+
+// ---------- 5. PAGE 3: the button, the numbers, the mood, then the pile ----------
 const FACE_SMILE = 4, FACE_FLAT = 6, FACE_LOW = 5, THROW = 7;
-
-// ---------- 3. find the things on the page we will change ----------
-const hero = document.getElementById("hero");
-const line = document.getElementById("line");
-const introNext = document.getElementById("intro-next");
-const controls = document.getElementById("controls");
-const moodbox = document.getElementById("moodbox");
+const hero = document.getElementById("use-hero");
 const smoke = document.getElementById("smoke");
-const button = document.getElementById("button");
-const puffsEl = document.getElementById("puffs");
-const thrownEl = document.getElementById("thrown");
-const bar = document.getElementById("bar");
-const curve = document.getElementById("curve");
-const pile = document.getElementById("pile");
-const fire = document.getElementById("fire");
+const useTitle = document.getElementById("use-title");
+const useLine = document.getElementById("use-line");
 
-// ---------- 4. the six opening frames: one click = next frame + next line ----------
-let step = 0;
-introNext.addEventListener("click", () => {
-  step++;
-  if (step < INTRO.length) {
-    hero.style.setProperty("--f", INTRO[step][0]);
-    title.textContent = INTRO[step][1];
-    line.textContent = INTRO[step][2];
-    return;
-  }
-  // after the last line: the button, the numbers and the mood curve appear
-  introNext.classList.add("hidden");
-  title.textContent = "One more";
-  line.textContent = "Press the button.";
-  hero.style.setProperty("--f", FACE_SMILE);
-  controls.classList.remove("hidden");
-  moodbox.classList.remove("hidden");
-  setInterval(tick, 500);
-});
-
-// ---------- 5. the numbers that change (the "state") ----------
-const CELLS = 5;         // one vape lasts 5 puffs here
+const CELLS = 5;          // one vape lasts 5 puffs here
 let battery = CELLS * 10; // %
-let puffs = 0;           // how many puffs in total
-let thrown = 0;          // how many vapes thrown away
-let mood = 50;           // 0 = worst, 100 = best
-let floor = 50;          // the mood sinks back down to this
-let busy = false;        // true while the throw frame is showing
+let puffs = 0;            // how many puffs in total
+let thrown = 0;           // how many vapes thrown away
+let mood = 50;            // 0 = worst, 100 = best
+let floor = 50;           // the mood sinks back down to this
+let busy = false;         // true while the throw frame is showing
 const PUFF_COST = 10;
-const NEXT_AT = 3;       // after this many thrown, you can go to the pile
-const history = [];      // mood every half second, for the curve
+const NEXT_AT = 3;        // after this many thrown, the pile button appears
+const SINK = 8;           // how fast the mood sinks every half second (was 3: too slow to see the faces)
+const history = [];       // mood every half second, for the curve
 
-// ---------- 6. pressing the button = one puff ----------
-button.addEventListener("click", () => {
+if (current === "use") setInterval(tick, 500);
+
+// one press = one puff
+document.getElementById("button").addEventListener("click", () => {
   if (busy || battery <= 0) return;
   puffs++;
   battery -= PUFF_COST;
-  puffsEl.textContent = puffs;
-  bar.textContent = "▮".repeat(battery / PUFF_COST) + "▯".repeat(CELLS - battery / PUFF_COST);
+  document.getElementById("puffs").textContent = puffs;
+  document.getElementById("bar").textContent = "▮".repeat(battery / PUFF_COST) + "▯".repeat(CELLS - battery / PUFF_COST);
   mood = Math.min(100, mood + 20);   // a puff feels good...
   floor = Math.max(10, floor - 1);   // ...but each one lowers where you sink back to
   flash();                           // the page flips black/white
@@ -105,25 +116,29 @@ function restart(el, cls) {
   el.classList.add(cls);
 }
 
-// ---------- 7. empty: the throw frame, then a new one is already in the hand ----------
+// empty: the throw frame, then a new one is already in the hand
 function throwAway() {
   busy = true;
   hero.style.setProperty("--f", THROW);
   thrown++;
-  thrownEl.textContent = thrown;
+  document.getElementById("thrown").textContent = thrown;
   floor = Math.max(10, floor - 8);   // every thrown vape drags the baseline down
   setTimeout(() => {
     battery = CELLS * 10;
-    bar.textContent = "▮".repeat(CELLS);
+    document.getElementById("bar").textContent = "▮".repeat(CELLS);
     busy = false;
-    if (thrown >= NEXT_AT) { title.textContent = "Where do they go?"; line.textContent = "Press Next → (or keep going)."; }
+    if (thrown >= NEXT_AT) {
+      useTitle.textContent = "Where do they go?";
+      useLine.textContent = "Three in a week. Press the button below, or keep going.";
+      document.getElementById("use-go").classList.remove("hidden");
+    }
   }, 700);
 }
 
-// ---------- 8. every half second: the mood sinks, the face and the curve follow ----------
+// every half second: the mood sinks, the face and the curve follow
 function tick() {
-  if (mood > floor) mood = Math.max(floor, mood - 3);
-  if (mood < floor) mood = Math.min(floor, mood + 3);
+  if (mood > floor) mood = Math.max(floor, mood - SINK);
+  if (mood < floor) mood = Math.min(floor, mood + SINK);
   if (!busy) {
     if (mood >= 65) hero.style.setProperty("--f", FACE_SMILE);
     else if (mood <= 35) hero.style.setProperty("--f", FACE_LOW);
@@ -135,6 +150,7 @@ function tick() {
 }
 
 function drawCurve() {
+  const curve = document.getElementById("curve");
   const c = curve.getContext("2d");
   const W = curve.width, H = curve.height;
   c.clearRect(0, 0, W, H);
@@ -149,9 +165,17 @@ function drawCurve() {
   c.fillText("good", 4, 14); c.fillText("low", 4, H - 4);
 }
 
-// ---------- 9. the pile: the ones you threw, then more and more, until it burns ----------
+// the pile takes the person's place: the ones you threw, then more, until it burns
 const BURN_AT = 5;
+document.getElementById("use-go").addEventListener("click", () => {
+  document.getElementById("player").classList.add("hidden");
+  document.getElementById("pilebox").classList.remove("hidden");
+  useTitle.textContent = "Where it ends";
+  startPile();
+});
+
 function startPile() {
+  const pile = document.getElementById("pile");
   let n = 0;
   const drop = () => {
     const dead = document.createElement("img");
@@ -173,13 +197,49 @@ function startPile() {
 }
 
 function burn() {
-  fire.classList.add("play");
+  document.getElementById("fire").classList.add("play");
   document.getElementById("end-fact").classList.remove("hidden");
   document.getElementById("end-source").classList.remove("hidden");
-  document.getElementById("end-again").classList.remove("hidden");
 }
 
-// ---------- 10. last: jump by hash (must come after everything above is defined) ----------
-// open index.html#person or #pile to jump straight to a scene (handy when presenting)
-if (location.hash === "#person") show(1);
-if (location.hash === "#pile") show(2);
+// ---------- 6. PAGE 4: six months a press. Me on the right, the mine on the left. ----------
+// PLACEHOLDER FACES: smile / flat / low / low again. Yi Han draws four new frames (healthy, tired, ill, gone)
+// and this list points at them.
+const STAGES = [
+  [FACE_SMILE, "Month 0", "Healthy."],
+  [FACE_FLAT, "Month 6", "Tired."],
+  [FACE_LOW, "Month 12", "Short of breath."],
+  [FACE_LOW, "Month 18", "Ill."],
+  [FACE_LOW, "Month 24", "Gone."],
+];
+const PER_MONTH = 10;   // one every three days, from my own use
+let months = 0;
+document.getElementById("years-go").addEventListener("click", async () => {
+  months += 6;
+  const stage = STAGES[months / 6];
+  document.getElementById("years-hero").style.setProperty("--f", stage[0]);
+  document.getElementById("years-line").textContent = stage[1] + ": " + stage[2];
+  document.getElementById("years-vapes").textContent = months * PER_MONTH;
+  if (months >= 24) {
+    document.getElementById("years-go").classList.add("hidden");
+    twoVoices();
+  }
+});
+
+// the stretch: the same fact, written twice, from two sides. The model does not get the last word.
+async function twoVoices() {
+  document.getElementById("voices").classList.remove("hidden");
+  const profit = document.getElementById("voice-profit");
+  const care = document.getElementById("voice-care");
+  profit.textContent = "Thinking...";
+  care.textContent = "Thinking...";
+  const base = "Fact: " + mineFact + "\n\n";
+  const tail = " In exactly two short sentences, speaking as I. Output only the two sentences.";
+  try {
+    profit.textContent = await askModel(base + "You are the boss of a company that profits from this cobalt. Defend it." + tail);
+    care.textContent = await askModel(base + "You are a nurse who cares for these miners. Say what you see." + tail);
+  } catch (error) {
+    profit.textContent = "The model could not answer (" + error.message + "). Is Ollama running?";
+    care.textContent = "";
+  }
+}

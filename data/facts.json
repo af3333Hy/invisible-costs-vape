@@ -1,5 +1,26 @@
 [
   {
+    "page": "start",
+    "title": "What the UK said",
+    "fact": "\"In the short and medium term, vaping poses a small fraction of the risks of smoking.\"",
+    "source": "Office for Health Improvement and Disparities, 2022",
+    "url": "https://assets.publishing.service.gov.uk/media/633469fc8fa8f5066d28e1a2/Nicotine-vaping-in-England-2022-report.pdf"
+  },
+  {
+    "page": "start",
+    "title": "What I did",
+    "fact": "I quit cigarettes and used a disposable every day. A convenient way to replace them. Each one lasted me two or three days.",
+    "source": "Yi Han",
+    "url": ""
+  },
+  {
+    "page": "start",
+    "title": "What the UK threw away",
+    "fact": "In 2024, about 8.2 million disposable vapes were thrown away or wrongly recycled every week in the UK: 13 every second.",
+    "source": "Material Focus, 2024",
+    "url": "https://resource.co/article/82-million-vapes-are-wrongly-discarded-each-week"
+  },
+  {
     "parts": [
       "mouthpiece"
     ],
@@ -59,5 +80,13 @@
     "note": "Numbers are from 2020 reporting. The number of workers changes every year.",
     "photo": "img/real/board.png",
     "credit": "The circuit board in the end cap. Real part from another disposable. Photo cut from <a href=\"https://wiki.recessim.com/view/Rechargeable_Disposable_Vape_Teardown\" target=\"_blank\">wiki.recessim.com</a>, CC BY-SA 4.0."
+  },
+  {
+    "page": "years",
+    "title": "Who digs the cobalt",
+    "fact": "Most of the world's cobalt comes from the DR Congo. At five large copper-cobalt mines in Kolwezi, 63% of the subcontracted workers interviewed earned well below the living wage of US$501 a month, with excessive hours and unsafe conditions.",
+    "source": "RAID and CAJJ, 2024",
+    "url": "https://raid-uk.org/drc-cobalt-mine-workers-energy-transition-are-trapped-in-exploitation-kolwezi-living-wage-2024/",
+    "note": "Children living on a former cobalt mining site in Kolwezi showed cobalt-linked DNA damage (Banza Lubaba Nkulu et al., 2018)."
   }
 ]

@@ -4,19 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Invisible Costs: a disposable vape</title>
-  <link rel="stylesheet" href="style.css?v=20261014n">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css?v=20261014q">
 </head>
 <body>
-  <!-- Back / Next in the corners: the three scenes can be visited in any order -->
-  <button id="back" class="nav hidden">&larr; Back</button>
-  <button id="next" class="nav">Next &rarr;</button>
+  <!-- Four pages. The menu at the top opens one; opening a page always starts it fresh. -->
+  <nav id="menu">
+    <button data-page="start">1 Start</button>
+    <button data-page="inside">2 Inside</button>
+    <button data-page="use">3 Use</button>
+    <button data-page="years">4 Two years</button>
+  </nav>
 
-  <h1>Invisible Costs: a disposable vape</h1>
+  <!-- Everything inside #app is designed at 1280 x 800 and scaled to fit the window (see demo.js) -->
+  <div id="app">
 
-  <!-- Three scenes. Only the one with class "on" is shown. -->
+  <!-- PAGE 1: how it starts. Six frames play by themselves, then the words. -->
+  <section id="page-start" class="page">
+    <h1>Invisible Costs: a disposable vape</h1>
+    <h2 id="start-title">Ten a day</h2>
+    <div id="start-hero" class="hero" style="--f: 0;"></div>
+    <p id="start-line" class="caption">Ten cigarettes a day.</p>
+    <!-- DRAFT: Yi Han rewrites these lines in his own words -->
+    <div id="start-words" class="hidden">
+      <ul id="start-facts" class="facts"></ul>
+      <button id="start-go" class="next">Take it apart &rarr;</button>
+    </div>
+  </section>
 
-  <!-- SCENE 1: take it apart, read the facts -->
-  <section id="scene-parts" class="scene on">
+  <!-- PAGE 2: take it apart, read the facts, ask the model -->
+  <section id="page-inside" class="page">
     <h2>What is inside?</h2>
     <p class="hint">Click a part to pull it apart.</p>
     <div id="parts-row">
@@ -29,48 +46,74 @@
         <img id="card-image" class="bw" alt="">
         <img id="card-photo" class="bw" alt="">
         <p id="card-credit"></p>
+        <!-- the language model: one fact in, two sentences out (Ollama on this computer) -->
+        <button id="ask-button" class="next small hidden">Ask the model</button>
+        <p id="model-output" class="model"></p>
       </aside>
     </div>
   </section>
 
-  <!-- SCENE 2: the person. First six frames with one line each, then press the button to puff. -->
-  <section id="scene-person" class="scene">
-    <h2 id="person-title">Ten a day</h2>
-    <div id="person-row">
-      <div id="player">
-        <div id="hero" class="hero" style="--f: 0;">
-          <div id="smoke"></div>
+  <!-- PAGE 3: use it. Press the button to puff; after three are thrown, see where they go. -->
+  <section id="page-use" class="page">
+    <h2 id="use-title">One more</h2>
+    <div id="player">
+      <div id="use-hero" class="hero" style="--f: 4;">
+        <div id="smoke"></div>
+      </div>
+      <p id="use-line" class="caption">Press the button.</p>
+      <div id="controls">
+        <div id="puffbox">
+          <img id="button" class="bw" src="img/09_button.png?v=20261013b" alt="push">
+          <p id="hud">Puffs <b id="puffs">0</b> &middot; Battery <span id="bar">&#9646;&#9646;&#9646;&#9646;&#9646;</span> &middot; Thrown <b id="thrown">0</b> / 3</p>
         </div>
-        <p id="line" class="caption">Ten cigarettes a day.</p>
-        <button id="intro-next" class="next">Continue &rarr;</button>
-        <div id="controls" class="hidden">
-          <div id="puffbox">
-            <img id="button" class="bw" src="img/09_button.png?v=20261013b" alt="push">
-            <p id="hud">Puffs <b id="puffs">0</b> &middot; Battery <span id="bar">&#9646;&#9646;&#9646;&#9646;&#9646;</span> &middot; Thrown <b id="thrown">0</b> / 3</p>
-          </div>
-          <div id="moodbox" class="hidden">
-            <p class="hint">How it feels</p>
-            <canvas id="curve" width="320" height="220"></canvas>
-          </div>
+        <div id="moodbox">
+          <p class="hint">How it feels</p>
+          <canvas id="curve" width="320" height="220"></canvas>
         </div>
       </div>
+      <button id="use-go" class="next hidden">Where do they go? &rarr;</button>
+    </div>
+    <!-- the pile: hidden until the button above is pressed -->
+    <div id="pilebox" class="hidden">
+      <div id="stage">
+        <div id="pile"></div>
+        <div id="fire"></div>
+        <div id="ground"></div>
+      </div>
+      <p id="end-fact" class="caption hidden">6.3 million vapes and pods a week are still binned or wrongly recycled in the UK. Battery fires in bin lorries and waste sites now exceed 1,200 a year.</p>
+      <p id="end-source" class="hidden">Source: Material Focus, 2026</p>
     </div>
   </section>
 
-  <!-- SCENE 3: the pile. They keep landing until it catches fire. -->
-  <section id="scene-pile" class="scene">
-    <h2>Where it ends</h2>
-    <div id="stage">
-      <div id="pile"></div>
-      <div id="fire"></div>
-      <div id="ground"></div>
+  <!-- PAGE 4: two years later. Me on the right, the mine on the left. -->
+  <section id="page-years" class="page">
+    <h2 id="years-title">Two years later</h2>
+    <div id="years-row">
+      <div id="mine">
+        <!-- PLACEHOLDER: Yi Han draws the miners (pickaxe loop) in Piskel; swap the sheet in style.css -->
+        <div id="miners"></div>
+        <p id="mine-fact" class="small-text"></p>
+      </div>
+      <div id="me">
+        <div id="years-hero" class="hero" style="--f: 4;"></div>
+        <p id="years-line" class="caption">Month 0</p>
+        <p id="years-hud" class="hud">Vapes thrown away <b id="years-vapes">0</b></p>
+        <button id="years-go" class="next">Six more months</button>
+      </div>
     </div>
-    <p id="end-fact" class="caption hidden">6.3 million vapes and pods a week are still binned or wrongly recycled in the UK. Battery fires in bin lorries and waste sites now exceed 1,200 a year.</p>
-    <p id="end-source" class="hidden">Source: Material Focus, 2026</p>
-    <button id="end-again" class="next hidden">Start again</button>
+    <!-- at the end: the model speaks twice, from two sides -->
+    <div id="voices" class="hidden">
+      <div class="voice"><h3>Profit says</h3><p id="voice-profit" class="model"></p></div>
+      <div class="voice"><h3>Care says</h3><p id="voice-care" class="model"></p></div>
+    </div>
   </section>
 
-  <script src="script.js?v=20261013b"></script>
-  <script src="demo.js?v=20261014k"></script>
+  </div>
+
+  <!-- the same button on every page: start this page again -->
+  <button id="reset" class="corner">&#8635; Start again</button>
+
+  <script src="script.js?v=20261014q"></script>
+  <script src="demo.js?v=20261014q"></script>
 </body>
 </html>
