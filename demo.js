@@ -43,14 +43,14 @@ let mineFact = "";
 
 // ---------- 4. PAGE 1: six frames play by themselves, then the words ----------
 // frames in the sheet: 0 cigarette  1 pack thrown  2 vape in hand  3 half raised  4 vape + smile  5 vape + low  6 flat  7 thrown
-// DRAFT LINES: Yi Han rewrites these in his own words.
+// Yi Han's own lines (14 Oct), grammar tidied.
 const INTRO = [
-  [0, "Ten a day", "Ten cigarettes a day."],
-  [1, "Quit", "I quit."],
-  [2, "A better one?", "This one is 'healthier'."],
-  [3, "First puff", "The first puff."],
-  [4, "3,000 a day", "Three thousand puffs a day."],
-  [5, "Can't stop", "I can't stop."],
+  [0, "Ten a day", "Ten cigarettes in one day."],
+  [1, "Gave it up", "I gave it up."],
+  [2, "Healthier?", "It's healthier, they said."],
+  [3, "First time", "The first time I use it."],
+  [4, "3,000 a day", "3,000 puffs in one day."],
+  [5, "Can't give it up", "I can't give it up."],
 ];
 const FRAME_TIME = 1300;   // milliseconds each frame stays
 if (current === "start") {
@@ -203,14 +203,14 @@ function burn() {
 }
 
 // ---------- 6. PAGE 4: six months a press. Me on the right, the mine on the left. ----------
-// PLACEHOLDER FACES: smile / flat / low / low again. Yi Han draws four new frames (healthy, tired, ill, gone)
-// and this list points at them.
+// Faces: frame number in img/years_sheet_5_PLACEHOLDER_AI.png (0 healthy, 1 tired, 2 tired, 3 gone, 4 gone).
+// The strip is cut from Jimeng reference images for now; Yi Han redraws the frames in Piskel and keeps the same order.
 const STAGES = [
-  [FACE_SMILE, "Month 0", "Healthy."],
-  [FACE_FLAT, "Month 6", "Tired."],
-  [FACE_LOW, "Month 12", "Short of breath."],
-  [FACE_LOW, "Month 18", "Ill."],
-  [FACE_LOW, "Month 24", "Gone."],
+  [0, "Month 0", "Healthy."],
+  [1, "Month 6", "Tired."],
+  [2, "Month 12", "Can't give it up."],
+  [3, "Month 18", "Ill."],          // TODO: Yi Han decides the last two words
+  [4, "Month 24", "Gone."],
 ];
 const PER_MONTH = 10;   // one every three days, from my own use
 let months = 0;

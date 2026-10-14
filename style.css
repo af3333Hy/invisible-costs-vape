@@ -103,7 +103,9 @@ img, .hero, #smoke, #fire, .part, #miners { image-rendering: pixelated; }
 #years-row { display: flex; justify-content: center; align-items: flex-start; gap: 40px; margin-top: 10px; }
 #mine { width: 340px; }
 #me { width: 780px; }
-#me .hero { max-width: 780px; }
+/* page 4 faces: 5 frames of 1000x600 in one strip. PLACEHOLDER_AI = Jimeng reference, to be redrawn by Yi Han in Piskel. */
+#years-hero { width: 600px; height: 360px; margin: 0 auto; background: url(img/years_sheet_5_PLACEHOLDER_AI.png?v=20261014s) no-repeat;
+  background-size: 500% 100%; background-position-x: calc(var(--f, 0) * 100% / 4); image-rendering: auto; }
 
 /* PLACEHOLDER box for the miners. When the sheet is drawn: give it a background like .hero and animate with steps(). */
 #miners { width: 320px; height: 320px; margin: 0 auto; border: 1px dashed #444; background: #080808;
