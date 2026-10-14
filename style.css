@@ -12,7 +12,7 @@ h3 { font-weight: normal; margin: 0 0 8px; }
 body.flash { filter: invert(1); }
 
 /* pixel art is shown big, with hard edges */
-img, .hero, #smoke, #fire, .part, #miners { image-rendering: pixelated; }
+img, .hero, #smoke, #fire, .part, .miner { image-rendering: pixelated; }
 /* the colour drawings are shown in black and white */
 .bw { filter: grayscale(1); }
 
@@ -38,12 +38,17 @@ img, .hero, #smoke, #fire, .part, #miners { image-rendering: pixelated; }
 /* what the model says */
 .model { color: #ddd; font-style: italic; margin: 10px 0 0; min-height: 1.4em; }
 
-/* ---------- the person: one strip, five frames of 1000x600 (0 healthy, 1 tired, 2 tired, 3 gone, 4 gone) ---------- */
-/* the sheet is 5x the element width, so frame f is shown by sliding the background f/4 of the way.
-   The strip is a placeholder for now; Yi Han redraws the frames in Piskel, same order, same size. */
-.hero { width: 600px; height: 360px; margin: 8px auto 0; position: relative;
-  background: url(img/years_sheet_5_PLACEHOLDER_AI.png?v=20261014v) no-repeat; background-size: 500% 100%;
-  background-position-x: calc(var(--f, 0) * 100% / 4); image-rendering: auto; }
+/* ---------- page 1: one strip, six frames of 288x128, drawn in Piskel (15 Oct) ----------
+   0 cigarette  1 pack in hand  2 throwing the pack  3 holding a vape  4 vape to the mouth (calm)  5 smiling
+   The sheet is 6x the element width, so frame f is shown by sliding the background f/5 of the way (5 steps between 6 frames). */
+.hero { width: 576px; height: 256px; margin: 8px auto 0; position: relative;
+  background: url(img/smoker_6b_288x128.png?v=20261015k) no-repeat; background-size: 600% 100%;
+  background-position-x: calc(var(--f, 0) * 100% / 5); }
+
+/* page 4: three frames of mine (0 calm, 1 tired, 2 zombie): calm for the first years, tired from year 10, zombie at year 30 */
+#years-hero { width: 576px; height: 256px;
+  background: url(img/years_3x288x128.png?v=20261015r) no-repeat; background-size: 300% 100%;
+  background-position-x: calc(var(--f, 0) * 100% / 2); }
 
 /* ---------- page 1: the words under the drawing ---------- */
 .facts { list-style: none; padding: 0; margin: 14px auto 0; max-width: 820px; text-align: left; }
@@ -74,10 +79,14 @@ img, .hero, #smoke, #fire, .part, #miners { image-rendering: pixelated; }
 
 /* under the drawing: the button on the left, the mood curve on the right */
 #controls { display: flex; justify-content: center; align-items: center; gap: 56px; margin-top: 8px; }
-#curve { border: 1px solid #333; background: #080808; }
+#curve { border: 1px solid #333; background: #080808; width: 320px; height: 150px; }
+/* page 3: four frames of my old hero (600x128 each): 0 smile, 1 calm, 2 low, 3 throw */
+#page-use .hero { width: 750px; height: 160px;
+  background: url(img/use_old4x600x128.png?v=20261015r) no-repeat; background-size: 400% 100%;
+  background-position-x: calc(var(--f, 0) * 100% / 3); }
 
-/* smoke: 6 frames (192x32), the strip slides with steps(6). Placed in percent of the drawing, rising from the end of the vape. */
-#smoke { position: absolute; left: 68%; bottom: 44%; width: 16%; aspect-ratio: 1 / 1;
+/* smoke: 6 frames (192x32), the strip slides with steps(6). Placed in percent of the drawing: the puff starts at the tip of the vape and drifts up and right. */
+#smoke { position: absolute; left: 51%; bottom: 43%; width: 10%; aspect-ratio: 1 / 1;
   background: url(img/06_smoke_sheet_6x32.png?v=20261013b) no-repeat; background-size: 600% 100%; visibility: hidden; }
 #smoke.play { visibility: visible; animation: strip 0.9s steps(6) forwards; }
 @keyframes strip { from { background-position-x: 0; } to { background-position-x: 120%; } }   /* 6 frames: 100%/5 per step, 6 steps */
@@ -100,15 +109,21 @@ img, .hero, #smoke, #fire, .part, #miners { image-rendering: pixelated; }
 #end-fact { max-width: 640px; margin: 14px auto 0; font-size: 1.2em; }
 #end-source { color: #999; font-size: 0.9em; margin: 4px 0 0; }
 
-/* ---------- page 4: two years later ---------- */
+/* ---------- page 4: thirty years later ---------- */
 #years-row { display: flex; justify-content: center; align-items: flex-start; gap: 40px; margin-top: 10px; }
-#mine { width: 340px; }
-#me { width: 780px; }
-/* PLACEHOLDER box for the miners. When the sheet is drawn: give it a background like .hero and animate with steps(). */
-#miners { width: 320px; height: 320px; margin: 0 auto; border: 1px dashed #444; background: #080808;
-  display: flex; align-items: center; justify-content: center; color: #555; font-size: 0.9em; }
-#miners::after { content: "miners (to draw)"; }
+#mine { width: 450px; }
+#me { width: 740px; }
+/* the miners: one strip of four frames (116x224 each, drawn by me), three of them side by side, each a little out of step */
+#miners { display: flex; justify-content: center; gap: 2px; margin: 0 auto; }
+.miner { width: 145px; height: 280px; background: url(img/miners_4x116x224.png?v=20261015c) no-repeat; background-size: 400% 100%;
+  animation: dig 0.6s steps(4) infinite; }
+.miner:nth-child(2) { animation-delay: -0.2s; }
+.miner:nth-child(3) { animation-delay: -0.4s; }
+@keyframes dig { from { background-position-x: 0; } to { background-position-x: 133.333%; } }   /* 4 frames: 100%/3 per step, 4 steps */
 
 /* the two voices side by side */
 #voices { display: flex; justify-content: center; gap: 24px; margin-top: 16px; }
 .voice { width: 520px; background: #111; border: 1px solid #333; padding: 14px 18px; text-align: left; }
+
+/* page 4: each voice has its own ask button; nothing is generated until it is pressed */
+.voice .ask { font: inherit; font-size: 0.85em; margin-left: 8px; padding: 2px 10px; }

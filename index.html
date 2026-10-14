@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Invisible Costs: a disposable vape</title>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="style.css?v=20261014v">
+  <link rel="stylesheet" href="style.css?v=20261015u">
 </head>
 <body>
   <!-- Four pages. The menu at the top opens one; opening a page always starts it fresh. -->
@@ -13,7 +13,7 @@
     <button data-page="start">1 Start</button>
     <button data-page="inside">2 Inside</button>
     <button data-page="use">3 Use</button>
-    <button data-page="years">4 Ten years</button>
+    <button data-page="years">4 Thirty years</button>
   </nav>
 
   <!-- Everything inside #app is designed at 1280 x 800 and scaled to fit the window (see demo.js) -->
@@ -57,7 +57,7 @@
   <section id="page-use" class="page">
     <h2 id="use-title">One more</h2>
     <div id="player">
-      <div id="use-hero" class="hero" style="--f: 0;">
+      <div id="use-hero" class="hero" style="--f: 1;">
         <div id="smoke"></div>
       </div>
       <p id="use-line" class="caption">Press the button.</p>
@@ -85,13 +85,13 @@
     </div>
   </section>
 
-  <!-- PAGE 4: two years later. Me on the right, the mine on the left. -->
+  <!-- PAGE 4: thirty years later. Me on the right, the mine on the left. -->
   <section id="page-years" class="page">
-    <h2 id="years-title">Ten years later</h2>
+    <h2 id="years-title">Thirty years later</h2>
     <div id="years-row">
       <div id="mine">
-        <!-- PLACEHOLDER: Yi Han draws the miners (pickaxe loop) in Piskel; swap the sheet in style.css -->
-        <div id="miners"></div>
+        <!-- three miners, the same four-frame loop, out of step with each other -->
+        <div id="miners"><div class="miner"></div><div class="miner"></div><div class="miner"></div></div>
         <p id="mine-fact" class="small-text"></p>
       </div>
       <div id="me">
@@ -99,12 +99,13 @@
         <p id="years-line" class="caption">Year 0: Healthy.</p>
         <p id="years-hud" class="hud">Vapes thrown away <b id="years-vapes">0</b></p>
         <button id="years-go" class="next">Years go by &rarr;</button>
+        <button id="voices-go" class="next hidden">Two voices &rarr;</button>
       </div>
     </div>
-    <!-- at the end: the model speaks twice, from two sides -->
+    <!-- at the end: two sides, the model only speaks for a side when its Ask button is pressed -->
     <div id="voices" class="hidden">
-      <div class="voice"><h3>Profit says</h3><p id="voice-profit" class="model"></p></div>
-      <div class="voice"><h3>Care says</h3><p id="voice-care" class="model"></p></div>
+      <div class="voice"><h3>Profit says <button class="ask" data-voice="profit">Ask &rarr;</button></h3><p id="voice-profit" class="model"></p></div>
+      <div class="voice"><h3>Care says <button class="ask" data-voice="care">Ask &rarr;</button></h3><p id="voice-care" class="model"></p></div>
     </div>
   </section>
 
@@ -113,7 +114,7 @@
   <!-- the same button on every page: start this page again -->
   <button id="reset" class="corner">&#8635; Start again</button>
 
-  <script src="script.js?v=20261014q"></script>
-  <script src="demo.js?v=20261014v"></script>
+  <script src="script.js?v=20261015u"></script>
+  <script src="demo.js?v=20261015u"></script>
 </body>
 </html>

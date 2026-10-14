@@ -42,15 +42,16 @@ function fillFacts(facts) {
 let mineFact = "";
 
 // ---------- 4. PAGE 1: six frames play by themselves, then the words ----------
-// frames in the strip: 0 healthy  1 tired  2 tired  3 gone  4 gone  (Yi Han adds cigarette / pack frames when he redraws)
+// frames in img/smoker_6b_288x128.png (six frames, drawn in Piskel, 15 Oct):
+// 0 cigarette  1 pack in hand  2 throwing the pack  3 holding a vape  4 vape to the mouth (calm)  5 smiling
 // Yi Han's own lines (14 Oct), grammar tidied.
 const INTRO = [
   [0, "Ten a day", "Ten cigarettes in one day."],
-  [0, "Gave it up", "I gave it up."],
-  [0, "Healthier?", "It's healthier, they said."],
-  [0, "First time", "The first time I use it."],
-  [0, "3,000 a day", "3,000 puffs in one day."],
-  [1, "Can't give it up", "I can't give it up."],
+  [1, "Gave it up", "I gave it up."],
+  [2, "Gave it up", "I gave it up."],
+  [3, "Healthier?", "It's healthier, they said."],
+  [4, "3,000 a day", "The first time I use it: 3,000 puffs in one day."],
+  [5, "Can't give it up", "I can't give it up."],
 ];
 const FRAME_TIME = 1300;   // milliseconds each frame stays
 if (current === "start") {
@@ -70,7 +71,7 @@ if (current === "start") {
 }
 
 // ---------- 5. PAGE 3: the button, the numbers, the mood, then the pile ----------
-const FACE_SMILE = 0, FACE_FLAT = 1, FACE_LOW = 2, THROW = 2;   // frames in the strip
+const FACE_SMILE = 0, FACE_FLAT = 1, FACE_LOW = 2, THROW = 3;   // page 3 strip (my old hero): 0 smile, 1 calm, 2 low, 3 throw
 const hero = document.getElementById("use-hero");
 const smoke = document.getElementById("smoke");
 const useTitle = document.getElementById("use-title");
@@ -202,15 +203,16 @@ function burn() {
   document.getElementById("end-source").classList.remove("hidden");
 }
 
-// ---------- 6. PAGE 4: ten years, a few years a press. Me on the right, the mine on the left. ----------
-// Faces: frame number in img/years_sheet_5_PLACEHOLDER_AI.png (0 healthy, 1 tired, 2 tired, 3 gone, 4 gone).
-// The strip is cut from Jimeng reference images for now; Yi Han redraws the frames in Piskel and keeps the same order.
+// ---------- 6. PAGE 4: thirty years, five years a press. Me on the right, the mine on the left. ----------
+// Faces: frames in img/years_3x288x128.png, drawn by me in Piskel: 0 calm, 1 tired, 2 zombie. No AI images anywhere on the site.
 const STAGES = [
   [0, "Year 0", "Healthy."],
-  [1, "Year 2", "Tired."],
-  [2, "Year 5", "Can't give it up."],
-  [3, "Year 8", "Ill."],          // TODO: Yi Han decides the last two words
-  [4, "Year 10", "Gone."],
+  [0, "Year 5", "Healthy."],
+  [1, "Year 10", "Tired."],
+  [1, "Year 15", "Tired."],
+  [1, "Year 20", "Can't give it up."],
+  [1, "Year 25", "Can't give it up."],
+  [2, "Year 30", "Gone."],        // the last press turns the face into the zombie
 ];
 const PER_YEAR = 120;   // one every three days, from my own use
 let stage = 0;
@@ -223,24 +225,34 @@ document.getElementById("years-go").addEventListener("click", async () => {
   document.getElementById("years-vapes").textContent = years * PER_YEAR;
   if (stage === STAGES.length - 1) {
     document.getElementById("years-go").classList.add("hidden");
-    twoVoices();
+    document.getElementById("voices-go").classList.remove("hidden");   // shows the two sides; each has its own Ask button
   }
+});
+document.getElementById("voices-go").addEventListener("click", () => {
+  document.getElementById("voices-go").classList.add("hidden");
+  twoVoices();
 });
 
 // the stretch: the same fact, written twice, from two sides. The model does not get the last word.
-async function twoVoices() {
+// "Ask the model" only shows the two sides. Each side has its own Ask button; nothing is generated until it is pressed.
+function twoVoices() {
   document.getElementById("voices").classList.remove("hidden");
-  const profit = document.getElementById("voice-profit");
-  const care = document.getElementById("voice-care");
-  profit.textContent = "Thinking...";
-  care.textContent = "Thinking...";
+}
+const PROMPTS = {
+  profit: "You are the boss of a company that profits from this cobalt. Defend it.",
+  care: "You are a nurse who cares for these miners. Say what you see."
+};
+document.querySelectorAll(".voice .ask").forEach(btn => btn.addEventListener("click", async () => {
+  const who = btn.dataset.voice;
+  const out = document.getElementById("voice-" + who);
+  btn.disabled = true;
+  out.textContent = "Thinking...";
   const base = "Fact: " + mineFact + "\n\n";
   const tail = " In exactly two short sentences, speaking as I. Output only the two sentences.";
   try {
-    profit.textContent = await askModel(base + "You are the boss of a company that profits from this cobalt. Defend it." + tail);
-    care.textContent = await askModel(base + "You are a nurse who cares for these miners. Say what you see." + tail);
+    out.textContent = await askModel(base + PROMPTS[who] + tail);
   } catch (error) {
-    profit.textContent = "The model could not answer (" + error.message + "). Is Ollama running?";
-    care.textContent = "";
+    out.textContent = "The model could not answer (" + error.message + "). Is Ollama running?";
   }
-}
+  btn.disabled = false;
+}));
