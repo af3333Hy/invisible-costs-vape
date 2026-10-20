@@ -38,6 +38,7 @@ The "Ask" buttons talk to [Ollama](https://ollama.com) on the same computer (`ht
 - All facts were researched by me; every card links to its source.
 - The code structure follows Boyd Branch's Project 0 template. AI (Claude) helped me write and fix parts of the code and corrected my English; I rebuilt the page on the template and learned what each part does.
 - Commits marked "Co-Authored-By: Claude" are the ones where AI helped write or fix code. After each one I went through the change, rebuilt it on the template and can explain what it does.
+- My own explanation of the code (what HTML, CSS, JavaScript and JSON each do here, which words are fixed and which names are mine) is in my Week 4 blog on my portfolio site: https://af3333hy.github.io/creattech_websites/ (Creative Tech 1 → Blog → Week 4), and in the Projects tab there.
 - The two-sentence reflections on pages 2 and 4 are written live by a local language model (Ollama, gemma3:1b) when a button is pressed; nothing is generated otherwise.
 - Real-part photos: my own pod (photographed by me) and two teardown photos under CC BY-SA 4.0 (Wikimedia Commons, wiki.recessim.com), credited on the cards.
 
